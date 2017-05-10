@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SlideSelectCell.h"
 
 @interface SlideSelectIndex : NSObject
 
@@ -70,6 +71,16 @@
  @return return value description
  */
 - (CGFloat)slideSelectView:(SlideSelectView *)view spaceBetweenColumnAtIndex:(SlideSelectIndex *)index;
+
+
+/**
+ 返回item元素之间的竖直间距
+ 
+ @param view view description
+ @param index index description
+ @return return value description
+ */
+- (CGFloat)slideSelectView:(SlideSelectView *)view verticalSpaceBetweenItemsAtIndex:(SlideSelectIndex *)index;
 
 /**
  返回每行row的默认item数量
@@ -142,9 +153,6 @@
  @return return value description
  */
 - (NSInteger)slideSelectView:(SlideSelectView *)view numberOfItemsAtIndex:(SlideSelectIndex *)index;
-
-
-@optional
 /**
  返回每个item所对应的元素view
  
@@ -152,7 +160,10 @@
  @param index index description
  @return return value description
  */
-- (UIView *)slideSelectView:(SlideSelectView *)view cellForItemAtIndex:(SlideSelectIndex *)index;
+- (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForItemAtIndex:(SlideSelectIndex *)index;
+
+
+@optional
 
 /**
  返回header上列的标题

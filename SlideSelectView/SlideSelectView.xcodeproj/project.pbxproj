@@ -19,6 +19,13 @@
 		168ABBDF1EBC1493004A49E4 /* SlideSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 168ABBDE1EBC1493004A49E4 /* SlideSelectView.m */; };
 		168ABBE51EBC1B7A004A49E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168ABBE41EBC1B7A004A49E4 /* Foundation.framework */; };
 		168ABBE71EBC1B7F004A49E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168ABBE61EBC1B7F004A49E4 /* UIKit.framework */; };
+		16D0057B1EC2FCCC00B81E08 /* SlideSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D0057A1EC2FCCC00B81E08 /* SlideSelectCell.m */; };
+		16D005801EC3165900B81E08 /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D0057F1EC3165900B81E08 /* TestCell.m */; };
+		16D005831EC3179000B81E08 /* house@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16D005811EC3179000B81E08 /* house@2x.png */; };
+		16D005841EC3179000B81E08 /* house@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16D005821EC3179000B81E08 /* house@3x.png */; };
+		16D005881EC3326B00B81E08 /* TestActivityIndicatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D005871EC3326B00B81E08 /* TestActivityIndicatorCell.m */; };
+		16D0058B1EC3467C00B81E08 /* house_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16D005891EC3467C00B81E08 /* house_blue@2x.png */; };
+		16D0058C1EC3467C00B81E08 /* house_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16D0058A1EC3467C00B81E08 /* house_blue@3x.png */; };
 		655290DD1EF8A07449B0C39D /* libPods-SlideSelectView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562CC81B52D335B95BD659A /* libPods-SlideSelectView.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +70,16 @@
 		168ABBDE1EBC1493004A49E4 /* SlideSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideSelectView.m; sourceTree = "<group>"; };
 		168ABBE41EBC1B7A004A49E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		168ABBE61EBC1B7F004A49E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		16D005791EC2FCCC00B81E08 /* SlideSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideSelectCell.h; sourceTree = "<group>"; };
+		16D0057A1EC2FCCC00B81E08 /* SlideSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideSelectCell.m; sourceTree = "<group>"; };
+		16D0057E1EC3165900B81E08 /* TestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
+		16D0057F1EC3165900B81E08 /* TestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
+		16D005811EC3179000B81E08 /* house@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "house@2x.png"; sourceTree = "<group>"; };
+		16D005821EC3179000B81E08 /* house@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "house@3x.png"; sourceTree = "<group>"; };
+		16D005861EC3326B00B81E08 /* TestActivityIndicatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestActivityIndicatorCell.h; sourceTree = "<group>"; };
+		16D005871EC3326B00B81E08 /* TestActivityIndicatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestActivityIndicatorCell.m; sourceTree = "<group>"; };
+		16D005891EC3467C00B81E08 /* house_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "house_blue@2x.png"; sourceTree = "<group>"; };
+		16D0058A1EC3467C00B81E08 /* house_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "house_blue@3x.png"; sourceTree = "<group>"; };
 		7093A1C268F2582F50BD8026 /* Pods-SlideSelectView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideSelectView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SlideSelectView/Pods-SlideSelectView.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F575C4107A0E9703F33B6B /* Pods-SlideSelectView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideSelectView.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlideSelectView/Pods-SlideSelectView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,9 +137,10 @@
 		168ABBA91EBC145A004A49E4 /* SlideSelectView */ = {
 			isa = PBXGroup;
 			children = (
-				168ABBE01EBC14A2004A49E4 /* Core */,
-				168ABBDD1EBC1493004A49E4 /* SlideSelectView.h */,
-				168ABBDE1EBC1493004A49E4 /* SlideSelectView.m */,
+				16D005851EC3179800B81E08 /* Sources */,
+				16D0057D1EC3164500B81E08 /* test */,
+				16D0057C1EC2FCD400B81E08 /* Core */,
+				168ABBE01EBC14A2004A49E4 /* Category */,
 				168ABBAD1EBC145A004A49E4 /* AppDelegate.h */,
 				168ABBAE1EBC145A004A49E4 /* AppDelegate.m */,
 				168ABBB01EBC145A004A49E4 /* ViewController.h */,
@@ -162,13 +180,13 @@
 			path = SlideSelectViewUITests;
 			sourceTree = "<group>";
 		};
-		168ABBE01EBC14A2004A49E4 /* Core */ = {
+		168ABBE01EBC14A2004A49E4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				163907361EC097D10041EF43 /* UIView+frame.h */,
 				163907371EC097D10041EF43 /* UIView+frame.m */,
 			);
-			name = Core;
+			name = Category;
 			sourceTree = "<group>";
 		};
 		168ABBE31EBC1B7A004A49E4 /* Frameworks */ = {
@@ -179,6 +197,39 @@
 				0562CC81B52D335B95BD659A /* libPods-SlideSelectView.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		16D0057C1EC2FCD400B81E08 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				16D005791EC2FCCC00B81E08 /* SlideSelectCell.h */,
+				16D0057A1EC2FCCC00B81E08 /* SlideSelectCell.m */,
+				168ABBDD1EBC1493004A49E4 /* SlideSelectView.h */,
+				168ABBDE1EBC1493004A49E4 /* SlideSelectView.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		16D0057D1EC3164500B81E08 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				16D0057E1EC3165900B81E08 /* TestCell.h */,
+				16D0057F1EC3165900B81E08 /* TestCell.m */,
+				16D005861EC3326B00B81E08 /* TestActivityIndicatorCell.h */,
+				16D005871EC3326B00B81E08 /* TestActivityIndicatorCell.m */,
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+		16D005851EC3179800B81E08 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				16D005891EC3467C00B81E08 /* house_blue@2x.png */,
+				16D0058A1EC3467C00B81E08 /* house_blue@3x.png */,
+				16D005811EC3179000B81E08 /* house@2x.png */,
+				16D005821EC3179000B81E08 /* house@3x.png */,
+			);
+			name = Sources;
 			sourceTree = "<group>";
 		};
 		7DE0949298EC2C93952C8941 /* Pods */ = {
@@ -301,8 +352,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				168ABBBA1EBC145A004A49E4 /* LaunchScreen.storyboard in Resources */,
+				16D005831EC3179000B81E08 /* house@2x.png in Resources */,
+				16D0058C1EC3467C00B81E08 /* house_blue@3x.png in Resources */,
+				16D005841EC3179000B81E08 /* house@3x.png in Resources */,
 				168ABBB71EBC145A004A49E4 /* Assets.xcassets in Resources */,
 				168ABBB51EBC145A004A49E4 /* Main.storyboard in Resources */,
+				16D0058B1EC3467C00B81E08 /* house_blue@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +430,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16D005881EC3326B00B81E08 /* TestActivityIndicatorCell.m in Sources */,
 				168ABBDF1EBC1493004A49E4 /* SlideSelectView.m in Sources */,
+				16D0057B1EC2FCCC00B81E08 /* SlideSelectCell.m in Sources */,
+				16D005801EC3165900B81E08 /* TestCell.m in Sources */,
 				168ABBB21EBC145A004A49E4 /* ViewController.m in Sources */,
 				168ABBAF1EBC145A004A49E4 /* AppDelegate.m in Sources */,
 				163907381EC097D10041EF43 /* UIView+frame.m in Sources */,

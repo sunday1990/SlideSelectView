@@ -13,8 +13,8 @@
 #define K_DefaultItemSpace  20
 
 
-#define K_DefaultColumnTag 123456
-#define K_DefaultItemTag   100
+#define K_DefaultColumnTag 1234567
+#define K_DefaultItemTag   1000
 
 #define CornerRadius(view,radius) view.layer.cornerRadius = radius;
 
@@ -135,16 +135,15 @@
     
     CGFloat columnSpace = [self.delegate slideSelectView:self spaceBetweenColumnAtIndex:index];
     
-    
     for (int i = 0; i<columnNums; i++) {
         //获取column标题
         NSString *columnTitle = [self.dataSource slideSelectView:self titleForColumnAtIndex:index];
+        
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.frame = CGRectMake(K_DefaultBorderSpace+(columnSpace+columnWidth)*i, K_DefaultBorderSpace, columnWidth, columnHeight);
         btn.tag = K_DefaultColumnTag*(index.group+1) + i;
-        
         [btn addTarget:self action:@selector(columnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
 //        CornerRadius(btn, btn.height/2);
 //        btn.layer.borderWidth = 0.2;
@@ -175,36 +174,75 @@
     NSInteger rowNums;
     rowNums = totalItemNums % perRowItemNums==0 ? totalItemNums/perRowItemNums : (totalItemNums/perRowItemNums)+1;
     
-    //单个item高度
-    CGFloat itemHeight;
-    itemHeight = [self.delegate slideSelectView:self heightForItemAtIndex:index];
+//    //获得平均item高度，为了计算contentHeight。
+//    CGFloat itemHeight;
+//    itemHeight = [self.delegate slideSelectView:self heightForItemAtIndex:index];
+//    
+//    //单item宽度
+//    CGFloat itemWidth;
+//    itemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
+//#warning 此处不是平均间距
+//    //求出平均得间距？？
+//    CGFloat itemSpace = ((self.width-2*K_DefaultBorderSpace)-perRowItemNums*itemWidth)/(perRowItemNums-1);
+   
     
-    //单个item宽度
-    CGFloat itemWidth;
-    itemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
+    //获得平均item高度，为了计算contentHeight
+    CGFloat averageItemHeight;
+    averageItemHeight = [self.delegate slideSelectView:self heightForItemAtIndex:index];
     
-    CGFloat itemSpace = ((self.width-2*K_DefaultBorderSpace)-perRowItemNums*itemWidth)/(perRowItemNums-1);
+    //获得平均item宽度，为了计算平均间距
+    CGFloat averageItemWidth;
+    averageItemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
+#warning 平均间距
+    //求出平均得间距？？
+    CGFloat averageItemSpace = ((self.width-2*K_DefaultBorderSpace)-perRowItemNums*averageItemWidth)/(perRowItemNums-1);
+
     for (int i = 0; i<rowNums; i++) {
         for (int j = 0; j<perRowItemNums; j++) {
             if (i*perRowItemNums+j == totalItemNums) {
                 break;
             }
-            NSString *itemTitle = [self.dataSource slideSelectView:self titleForItemAtIndex:index];
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.titleLabel.font = [UIFont systemFontOfSize:12];
-//            btn.backgroundColor = [UIColor grayColor];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(K_DefaultBorderSpace+(itemSpace+itemWidth)*j, K_DefaultBorderSpace+(K_DefaultItemSpace+itemHeight)*i, itemWidth, itemHeight);
-            [btn addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-            btn.tag =K_DefaultColumnTag*(index.group + 1) + K_DefaultItemTag*(index.column)+i*perRowItemNums+j;
-//            CornerRadius(btn, btn.height/2);
-            [btn setTitle:itemTitle forState:UIControlStateNormal];
-            [scrollView addSubview:btn];
+            index.item = i*perRowItemNums+j;
+            //单个item高度
+            CGFloat itemHeight;
+            itemHeight = [self.delegate slideSelectView:self heightForItemAtIndex:index];
+            
+            //单item宽度
+            CGFloat itemWidth;
+            itemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
+            //itemspace在确定x位置的时候无效
+            CGFloat itemSpace = averageItemWidth;
+
+            //item的垂直间距
+            CGFloat verticalItemSpace = [self.delegate slideSelectView:self verticalSpaceBetweenItemsAtIndex:index];
+            
+//            //获取标题title
+//            NSString *itemTitle = [self.dataSource slideSelectView:self titleForItemAtIndex:index];
+//            
+            SlideSelectCell *cell = [self.dataSource slideSelectView:self cellForItemAtIndex:index];
+//            if (itemTitle.length>0) {
+//                cell.titleLabel.text = itemTitle;
+//            }
+            
+            
+            
+#warning 这里的两个space在确定x位置的时候失去了意义，通过下方的centerX来确定位置。y的位置如何确定
+            
+            cell.frame = CGRectMake(K_DefaultBorderSpace+(itemSpace+itemWidth)*j, K_DefaultBorderSpace+(verticalItemSpace+itemHeight)*i, itemWidth, itemHeight);
+   
+            [cell addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.centerX = self.width/perRowItemNums * j + self.width/(2*perRowItemNums);
+
+            cell.tag =K_DefaultColumnTag*(index.group + 1) + K_DefaultItemTag*(index.column)+i*perRowItemNums+j;
+         
+            [scrollView addSubview:cell];
         }
     }
+#warning 计算总高度
     //高度
     CGFloat contentHeight;
-    contentHeight = 2*K_DefaultBorderSpace + (rowNums - 1)*K_DefaultItemSpace+rowNums*itemHeight;
+    contentHeight = 2*K_DefaultBorderSpace + (rowNums - 1)*K_DefaultItemSpace+rowNums*averageItemHeight;
     scrollView.contentSize = CGSizeMake(self.width, contentHeight);
 }
 
