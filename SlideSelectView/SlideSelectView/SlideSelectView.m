@@ -85,7 +85,7 @@
         headerView.showsHorizontalScrollIndicator = YES;
         //计算contentsize
         headerView.contentSize = CGSizeMake([self contentWidthOfHeaderViewAtIndex:self.groupIndexArray[i][0]], K_DefaultBorderSpace*2+ columnHeight);
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.backgroundColor = [UIColor blackColor];
         [self.headerViewDic setObject:headerView forKey:[NSString stringWithFormat:@"%d",i]];
         [self.slideSelectScrollView addSubview:headerView];
         /*
@@ -104,7 +104,7 @@
             viewHeight = 200;
         }
         
-        UIScrollView *contentView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, headerView.bottom, self.width, viewHeight)];
+        UIScrollView *contentView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, headerView.bottom+2, self.width, viewHeight)];
         contentView.contentSize = CGSizeMake(self.width, contentSizeHeight);
         //保存contentViewDic
         [self.contentViewDic setObject:contentView forKey:[NSString stringWithFormat:@"%d",i]];
@@ -119,6 +119,10 @@
 
 //创建headerview的内容
 - (void)configHeaderView:(UIScrollView *)scrollView atIndex:(SlideSelectIndex *)index{
+    //每次移除都进行移除吧还是，因为每个column对应的item数目并不是固定的。
+    for (UIView *view in scrollView.subviews) {
+        [view removeFromSuperview];
+    }
     //获取对应group的column个数
     NSInteger columnNums = [self.dataSource slideSelectView:self numberOfColumnsInGroup:index.group];
     //获取column的宽度
@@ -137,22 +141,22 @@
         NSString *columnTitle = [self.dataSource slideSelectView:self titleForColumnAtIndex:index];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
-//        btn.backgroundColor = [UIColor greenColor];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.frame = CGRectMake(K_DefaultBorderSpace+(columnSpace+columnWidth)*i, K_DefaultBorderSpace, columnWidth, columnHeight);
-        
         btn.tag = K_DefaultColumnTag*(index.group+1) + i;
         
         [btn addTarget:self action:@selector(columnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-        CornerRadius(btn, btn.height/2);
-        btn.layer.borderWidth = 0.2;
-        btn.layer.borderColor = [UIColor blackColor].CGColor;
+//        CornerRadius(btn, btn.height/2);
+//        btn.layer.borderWidth = 0.2;
+//        btn.layer.borderColor = [UIColor blackColor].CGColor;
         [btn setTitle:columnTitle forState:UIControlStateNormal];
         [scrollView addSubview:btn];
     }
 }
 
-#pragma mark 创建contentView的内容，先做的简单点，不考虑定制元素的情况。
+#pragma mark 创建contentView的内容，先做的简单点，不考虑定制元素的情况。问题是控件的定制性太差，只能是btn,需要改成面向协议的。
+
+
 - (void)configContentView:(UIScrollView *)scrollView atIndex:(SlideSelectIndex *)index{
 
     //每次移除都进行移除吧还是，因为每个column对应的item数目并不是固定的。
@@ -268,29 +272,38 @@
 #pragma mark item元素被点击
 - (void)itemDidSelected:(UIButton *)itemBtn{
     NSInteger tag = itemBtn.tag;
-    //通过tag求出group与column
+    //通过tag求出group、column、item
     NSLog(@"itemTag:%ld",tag);
     NSInteger group = tag/K_DefaultColumnTag - 1;
     NSInteger column = (tag - K_DefaultColumnTag*(group+1))/K_DefaultItemTag;
     NSInteger item = (tag - K_DefaultColumnTag*(group+1))%K_DefaultItemTag;
     SlideSelectIndex *itemIndex = [SlideSelectIndex slideSelectIndexWithGroup:group column:column item:item];
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(slideSelectView:didSelectItemAtIndex:)]) {
         [self.delegate slideSelectView:self didSelectItemAtIndex:itemIndex];
     }
-    NSLog(@"group:%ld \ncolumn:%ld \nitem:%ld\n",group,column,item);
 }
 
 - (void)reloadData{
-    //开发中
-    
-    
-    
+    NSArray *allKeys = [self.headerViewDic allKeys];
+    for (NSString *group in allKeys) {
+        UIScrollView *headerView = [self.headerViewDic objectForKey:group];
+        //刷新==重绘
+        [self configHeaderView:headerView atIndex:[SlideSelectIndex slideSelectIndexWithGroup:group.integerValue column:0 item:0]];
+        UIScrollView *contentView = [self.contentViewDic objectForKey:group];
+        [self configContentView:contentView atIndex:[SlideSelectIndex slideSelectIndexWithGroup:group.integerValue column:0 item:0]];
+    }
 }
 
 - (void)reloadDataAtIndex:(SlideSelectIndex *)index{
-    //开发中
-
+    //1、获取所在的headerView
+    UIScrollView *headerView = [self.headerViewDic objectForKey:[NSString stringWithFormat:@"%ld",index.group]];
+    //刷新==重绘
+    [self configHeaderView:headerView atIndex:index];
+    
+    //2、获取所在的contentView
+    UIScrollView *contentView = [self.contentViewDic objectForKey:[NSString stringWithFormat:@"%ld",index.group]];
+    //刷新==重绘
+    [self configContentView:contentView atIndex:index];
 }
 
 

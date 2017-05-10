@@ -188,12 +188,21 @@
 
 @property (nonatomic, weak, nullable) id <SlideSelectViewDataSource> dataSource;
 
-//- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;  // Used by the delegate to acquire an already allocated cell, in lieu of allocating a new one.
+////- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;  // Used by the delegate to acquire an already allocated cell, in lieu of allocating a new one.
+//
+//- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;
 
-- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;
-
+/**
+ 回到起始状态
+ */
 - (void)reloadData;
 
+
+/**
+ 会对一个headerView以及column所对应的contentView进行刷新,
+
+ @param index index description
+ */
 - (void)reloadDataAtIndex:(SlideSelectIndex *)index;
 
 @end
