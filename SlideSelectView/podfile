@@ -1,0 +1,7 @@
+platform:ios, ‘8.0’
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target "SlideSelectView" do
+	pod 'SVProgressHUD', '~> 2.1.2'
+end
