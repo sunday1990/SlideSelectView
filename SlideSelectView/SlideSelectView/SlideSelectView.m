@@ -136,25 +136,18 @@
     CGFloat columnSpace = [self.delegate slideSelectView:self spaceBetweenColumnAtIndex:index];
     
     for (int i = 0; i<columnNums; i++) {
-        //获取column标题
-        NSString *columnTitle = [self.dataSource slideSelectView:self titleForColumnAtIndex:index];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        btn.frame = CGRectMake(K_DefaultBorderSpace+(columnSpace+columnWidth)*i, K_DefaultBorderSpace, columnWidth, columnHeight);
-        btn.tag = K_DefaultColumnTag*(index.group+1) + i;
-        [btn addTarget:self action:@selector(columnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-//        CornerRadius(btn, btn.height/2);
-//        btn.layer.borderWidth = 0.2;
-//        btn.layer.borderColor = [UIColor blackColor].CGColor;
-        [btn setTitle:columnTitle forState:UIControlStateNormal];
-        [scrollView addSubview:btn];
+        SlideSelectIndex *columnIndex = [SlideSelectIndex slideSelectIndexWithGroup:index.group column:i item:0];
+        SlideSelectCell *cell = [self.dataSource slideSelectView:self cellForColumnAtIndex:columnIndex];
+        cell.frame = CGRectMake(K_DefaultBorderSpace+(columnSpace+columnWidth)*i, K_DefaultBorderSpace, columnWidth, columnHeight);
+        cell.tag = K_DefaultColumnTag*(index.group+1) + i;
+        [cell addTarget:self action:@selector(columnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+
+        [scrollView addSubview:cell];
     }
 }
 
-#pragma mark 创建contentView的内容，先做的简单点，不考虑定制元素的情况。问题是控件的定制性太差，只能是btn,需要改成面向协议的。
-
+#pragma mark 创建contentView的内容，改成面向协议的。
 
 - (void)configContentView:(UIScrollView *)scrollView atIndex:(SlideSelectIndex *)index{
 
@@ -169,22 +162,11 @@
     //获取单行的item数目
     NSInteger perRowItemNums;
     perRowItemNums = [self.delegate slideSelectView:self defaultItemNumsOfEveryRowAtIndex:index];
-    
+  
+#warning 暂时没有获取平均间距
     //行数目
     NSInteger rowNums;
     rowNums = totalItemNums % perRowItemNums==0 ? totalItemNums/perRowItemNums : (totalItemNums/perRowItemNums)+1;
-    
-//    //获得平均item高度，为了计算contentHeight。
-//    CGFloat itemHeight;
-//    itemHeight = [self.delegate slideSelectView:self heightForItemAtIndex:index];
-//    
-//    //单item宽度
-//    CGFloat itemWidth;
-//    itemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
-//#warning 此处不是平均间距
-//    //求出平均得间距？？
-//    CGFloat itemSpace = ((self.width-2*K_DefaultBorderSpace)-perRowItemNums*itemWidth)/(perRowItemNums-1);
-   
     
     //获得平均item高度，为了计算contentHeight
     CGFloat averageItemHeight;
@@ -193,7 +175,7 @@
     //获得平均item宽度，为了计算平均间距
     CGFloat averageItemWidth;
     averageItemWidth = [self.delegate slideSelectView:self widthForItemAtIndex:index];
-#warning 平均间距
+
     //求出平均得间距？？
     CGFloat averageItemSpace = ((self.width-2*K_DefaultBorderSpace)-perRowItemNums*averageItemWidth)/(perRowItemNums-1);
 
@@ -216,22 +198,12 @@
             //item的垂直间距
             CGFloat verticalItemSpace = [self.delegate slideSelectView:self verticalSpaceBetweenItemsAtIndex:index];
             
-//            //获取标题title
-//            NSString *itemTitle = [self.dataSource slideSelectView:self titleForItemAtIndex:index];
-//            
             SlideSelectCell *cell = [self.dataSource slideSelectView:self cellForItemAtIndex:index];
-//            if (itemTitle.length>0) {
-//                cell.titleLabel.text = itemTitle;
-//            }
-            
-            
             
 #warning 这里的两个space在确定x位置的时候失去了意义，通过下方的centerX来确定位置。y的位置如何确定
             
             cell.frame = CGRectMake(K_DefaultBorderSpace+(itemSpace+itemWidth)*j, K_DefaultBorderSpace+(verticalItemSpace+itemHeight)*i, itemWidth, itemHeight);
-   
             [cell addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-            
             cell.centerX = self.width/perRowItemNums * j + self.width/(2*perRowItemNums);
 
             cell.tag =K_DefaultColumnTag*(index.group + 1) + K_DefaultItemTag*(index.column)+i*perRowItemNums+j;
@@ -286,7 +258,6 @@
     
     return contentHeight;
 }
-
 
 #pragma mark 刷新指定Column对应的items
 - (void)reloadItemsAtColumn:(SlideSelectIndex *)index{

@@ -161,27 +161,16 @@
  @return return value description
  */
 - (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForItemAtIndex:(SlideSelectIndex *)index;
+/**
+ 返回每个column所对应的元素view
+ @param view view description
+ @param index index description
+ @return return value description
+ */
+- (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForColumnAtIndex:(SlideSelectIndex *)index;
 
 
 @optional
-
-/**
- 返回header上列的标题
- 
- @param view view description
- @param index index description
- @return return value description
- */
-- (NSString *)slideSelectView:(SlideSelectView *)view titleForColumnAtIndex:(SlideSelectIndex *)index;
-
-/**
- 返回item所对应的标题
- 
- @param view view description
- @param index index description
- @return return value description
- */
-- (NSString *)slideSelectView:(SlideSelectView *)view titleForItemAtIndex:(SlideSelectIndex *)index;
 
 /**
  一共有多少组
@@ -199,15 +188,10 @@
 
 @property (nonatomic, weak, nullable) id <SlideSelectViewDataSource> dataSource;
 
-////- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;  // Used by the delegate to acquire an already allocated cell, in lieu of allocating a new one.
-//
-//- (UIView *)dequeueReusableViewWithIdentifier:(NSString *)identifier;
-
 /**
  回到起始状态
  */
 - (void)reloadData;
-
 
 /**
  会对一个headerView以及column所对应的contentView进行刷新,

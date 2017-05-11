@@ -32,6 +32,7 @@
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont systemFontOfSize:12];
         _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.userInteractionEnabled = YES;
     }
     return _titleLabel;
 }

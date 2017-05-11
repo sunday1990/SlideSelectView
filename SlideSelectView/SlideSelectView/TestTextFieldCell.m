@@ -1,14 +1,14 @@
 //
-//  TestActivityIndicatorCell.m
+//  TestTextFieldCell.m
 //  SlideSelectView
 //
 //  Created by ccSunday on 2017/5/10.
 //  Copyright © 2017年 ccSunday. All rights reserved.
 //
 
-#import "TestActivityIndicatorCell.h"
+#import "TestTextFieldCell.h"
 
-@implementation TestActivityIndicatorCell
+@implementation TestTextFieldCell
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -24,11 +24,17 @@
     return self;
 }
 
+
 - (void)setupSubviews{
-    UIActivityIndicatorView* activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:self.bounds];
-    activityIndicatorView.activityIndicatorViewStyle= UIActivityIndicatorViewStyleWhite;
-    [activityIndicatorView startAnimating];
-    [self addSubview:activityIndicatorView];
+    UITextField *textField = [[UITextField alloc]initWithFrame:self.bounds];
+    textField.placeholder = @"请输入";
+    textField.layer.borderColor = [UIColor whiteColor].CGColor;
+    textField.layer.borderWidth = 0.5;
+    textField.font = [UIFont systemFontOfSize:12];
+    textField.textColor = [UIColor whiteColor];
+    [self addSubview:textField];
+    
 }
+
 
 @end

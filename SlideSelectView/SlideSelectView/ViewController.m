@@ -7,13 +7,13 @@
 //
 
 #import "ViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "SlideSelectView.h"
-
 //Test
 #import "TestCell.h"
 #import "TestActivityIndicatorCell.h"
+#import "TestTextFieldCell.h"
 
-#import <SVProgressHUD/SVProgressHUD.h>
 #define WIDTH  ([[UIScreen mainScreen]bounds].size.width)
 #define HEIGHT ([[UIScreen mainScreen]bounds].size.height)
 
@@ -99,24 +99,13 @@
     return 3;
 }
 
-
-/**
- 返回header上列的标题
- 
- @param view view description
- @param index index description
- @return return value description
- */
-- (NSString *)slideSelectView:(SlideSelectView *)view titleForColumnAtIndex:(SlideSelectIndex *)index{
-    return @"北京";
-}
-
 - (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForItemAtIndex:(SlideSelectIndex *)index{
     if (index.group == 0) {
 #warning 这里的selectCell的宽度与高度必须与代理方法中给出的一致
         if (index.item%2 == 1) {
-            TestActivityIndicatorCell *cell = [[TestActivityIndicatorCell alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+            TestTextFieldCell *cell = [[TestTextFieldCell alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
             return cell;
+            
         }else{
             SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 40, 25)];
             cell.backgroundColor = [UIColor whiteColor];
@@ -128,20 +117,6 @@
         TestCell *cell = [[TestCell alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
         return cell;
 
-//        if (index.item%2==0) {
-//#warning 这里的TestCell的frame可以不设置的，可以直接从代理中获得。
-//            
-//            TestCell *cell = [[TestCell alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
-//            return cell;
-//        }else{
-//            SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 40, 25)];
-//            cell.backgroundColor = [UIColor whiteColor];
-//            cell.titleLabel.text = [NSString stringWithFormat:@"%ld",index.item];
-//
-//            //    cell.titleLabel.textColor = [UIColor whiteColor];
-//            return cell;
-//        }
-
     }else{
         SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 40, 25)];
         cell.backgroundColor = [UIColor whiteColor];
@@ -152,6 +127,36 @@
     }
 }
 
+- (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForColumnAtIndex:(SlideSelectIndex *)index{
+    if (index.group == 0) {
+        SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.layer.cornerRadius = 2;
+        cell.titleLabel.text = [NSString stringWithFormat:@"%ld",index.column];
+        return cell;
+
+    }else if(index.group == 1){
+        if (index.column%2 == 0) {
+            SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.layer.cornerRadius = 2;
+            cell.titleLabel.text = [NSString stringWithFormat:@"%ld",index.column];
+            return cell;
+
+        }else{
+            TestActivityIndicatorCell *cell = [[TestActivityIndicatorCell alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
+            return cell;
+        }
+    }else{
+        SlideSelectCell *cell = [[SlideSelectCell alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.layer.cornerRadius = 2;
+        cell.titleLabel.text = [NSString stringWithFormat:@"%ld",index.column];
+        //    cell.titleLabel.textColor = [UIColor whiteColor];
+        return cell;
+    }
+
+}
 
 #pragma mark SlideViewDelegate
 
@@ -241,11 +246,6 @@
 - (CGFloat)slideSelectView:(SlideSelectView *)view heightForItemAtIndex:(SlideSelectIndex *)index{
     if (index.group == 1) {
         return 20;
-        if (index.item%2==0) {
-            return 20;
-        }else{
-            return 25;
-        }
     }else if(index.group == 0){
         if (index.group%2==1) {
             return 20;
@@ -268,15 +268,9 @@
     if (index.group == 1) {
         return 20;
         
-        if (index.item%2==0) {
-            return 20;
-        }else{
-            return 40;
-        }
-        
     }else if(index.group == 0 ){
         if (index.item%2==1) {
-            return 20;
+            return 40;
         }else{
             return 40;
         }
@@ -295,16 +289,5 @@
 - (void)slideSelectView:(SlideSelectView *)view didSelectItemAtIndex:(SlideSelectIndex *)index{
     NSLog(@"group:%ld \ncolumn:%ld \nitem:%ld\n",index.group,index.column,index.item);
     [SVProgressHUD showSuccessWithStatus: [NSString stringWithFormat:@"select item ---> group=%ld\ncolumn=%ld\nitem=%ld",index.group,index.column,index.item]];
-}
-
-/**
- 返回item所对应的标题
- 
- @param view view description
- @param index index description
- @return return value description
- */
-- (NSString *)slideSelectView:(SlideSelectView *)view titleForItemAtIndex:(SlideSelectIndex *)index{
-    return @"武汉";
 }
 @end
