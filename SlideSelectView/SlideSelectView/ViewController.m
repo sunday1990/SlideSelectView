@@ -101,7 +101,7 @@
 
 - (SlideSelectCell *)slideSelectView:(SlideSelectView *)view cellForItemAtIndex:(SlideSelectIndex *)index{
     if (index.group == 0) {
-#warning 这里的selectCell的宽度与高度必须与代理方法中给出的一致
+// 这里的selectCell的宽度与高度必须与代理方法中给出的一致
         if (index.item%2 == 1) {
             TestTextFieldCell *cell = [[TestTextFieldCell alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
             return cell;
