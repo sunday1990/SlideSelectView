@@ -274,7 +274,6 @@
         }else{
             return 40;
         }
-        
     }else{
         return 40;
     }

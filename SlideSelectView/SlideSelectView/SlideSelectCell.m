@@ -39,7 +39,7 @@
     return _titleLabel;
 }
 
-#pragma mark 观察tababr是否被隐藏
+#pragma mark 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"text"]) {
         NSString *text = (NSString *)change[@"new"];
